@@ -3,7 +3,11 @@ name: MobileOps Pro – Native iOS Deployment
 on:
   workflow_dispatch:
   push:
-    branches: [v1.0.0]
+    branches: [main, "release/**"]
+# Explicitly defining permissions for the GITHUB_TOKEN
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   build:

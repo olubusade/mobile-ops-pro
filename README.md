@@ -109,6 +109,33 @@ To bypass 2FA and enable headless cloud builds, you must provision an App Store 
 
 ---
 
+## ⚙️ GitHub Environment Setup
+
+To successfully execute this pipeline, you must configure the following on GitHub:
+
+### 1. Repository Permissions
+Since this pipeline pushes metadata and interacts with GitHub Actions:
+1. Go to **Settings** > **Actions** > **General**.
+2. Under **Workflow permissions**, select **Read and write permissions**.
+3. Check **Allow GitHub Actions to create and approve pull requests**.
+
+### 2. Environment Secrets
+Navigate to **Settings** > **Secrets and variables** > **Actions** and add the following:
+
+| Secret Name | Source |
+| :--- | :--- |
+| `APP_STORE_CONNECT_API_KEY` | The full text of your `.p8` file. |
+| `APP_STORE_CONNECT_API_KEY_ID` | 10-character Key ID from Apple. |
+| `APP_STORE_CONNECT_API_ISSUER` | Issuer ID (UUID) from Apple. |
+| `TEAM_ID` | Your 10-character Apple Team ID. |
+
+---
+
+## 🛠️ Local Implementation Note
+This repository contains the **CI/CD Orchestration Layer**. To use this in a live project:
+1. Ensure your `ios/App/App.xcworkspace` exists in the root.
+2. Provide a valid `ios/App/exportOptions.plist` configured for your specific Bundle Identifier.
+
 ## 🛠️ The Pipeline Workflow
 
 ### 1. Environment Preparation
