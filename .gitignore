@@ -1,0 +1,9 @@
+# .gitignore
+node_modules/
+build/
+ios/App/build/
+ios/App/Pods/
+*.ipa
+*.xcarchive
+.DS_Store
+.appstoreconnect/

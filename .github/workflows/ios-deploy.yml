@@ -1,0 +1,86 @@
+name: MobileOps Pro – Native iOS Deployment
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [v1.0.0]
+
+jobs:
+  build:
+    name: Build & Archive
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 16
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - name: Sync Capacitor
+        run: |
+          npm ci
+          npm run build
+          npx cap sync ios
+
+      - name: Generate App Icons and Splash
+        run: |
+          npm install @capacitor/assets --save-dev
+          npx @capacitor/assets generate --ios --assetPath src/assets
+
+      - name: Install Pods
+        run: cd ios/App && pod install
+
+      - name: Troubleshoot Secrets
+        run: |
+          echo "--- Pre-flight Secret Check ---"
+          if [[ "${{ secrets.APP_STORE_CONNECT_API_ISSUER }}" =~ ^[0-9a-fA-F-]{36}$ ]]; then echo "✅ Issuer ID Format OK"; else echo "❌ Issuer ID Format ERROR"; exit 1; fi
+          if [ $(echo -n "${{ secrets.TEAM_ID }}" | wc -m) -eq 10 ]; then echo "✅ Team ID Length OK"; else echo "❌ Team ID Length ERROR"; exit 1; fi
+
+      - name: Write API Key to Disk
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}" > ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
+      - name: Set Build Number
+        run: |
+          cd ios/App/App
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${{ github.run_number }}" Info.plist
+          echo "Build number set to ${{ github.run_number }}"
+
+      - name: Build iOS Archive
+        run: |
+          xcodebuild \
+            -workspace ios/App/App.xcworkspace \
+            -scheme App \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            archive \
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM=${{ secrets.TEAM_ID }} \
+            -allowProvisioningUpdates \
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_ISSUER }} \
+            -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
+      - name: Export IPA
+        run: |
+          xcodebuild \
+            -exportArchive \
+            -archivePath build/App.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist ios/App/exportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyID ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            -authenticationKeyIssuerID ${{ secrets.APP_STORE_CONNECT_API_ISSUER }} \
+            -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
+
+      - name: Upload to TestFlight
+        run: |
+          xcrun altool --upload-app \
+            --type ios \
+            --file build/App.ipa \
+            --apiKey ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }} \
+            --apiIssuer ${{ secrets.APP_STORE_CONNECT_API_ISSUER }}
