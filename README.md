@@ -64,7 +64,7 @@ I have updated the structure to include a dedicated `scripts` directory that han
 
 ```text
 mobile-ops-pro/
- ┣ 📂 .github/workflows/
+ ┣ 📂 ci-architecture/          # <--- The "Gold" Logic lives here
  ┃ ┗ 📜 ios-deploy.yml          # The Orchestrator (Clean & High-level)
  ┣ 📂 ios/
     ┗  📂 App/
@@ -91,6 +91,8 @@ A high-performance **Native iOS CI/CD Pipeline** designed for hybrid application
 
 ## 🏗️ Architectural Overview
 
+## NB: 
+"The deployment logic is stored in the /ci-architecture directory as a template. To activate this in a live production environment, the folder should be renamed to .github/workflows."
 This pipeline is triggered **post-build**. Once web assets are compiled and the Capacitor bridge is synchronized (`npx cap sync`), this engine takes over to handle the complex native compilation, signing, and distribution phases.
 
 ### Key Engineering Features:
