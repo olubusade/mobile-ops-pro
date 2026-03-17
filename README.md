@@ -3,6 +3,23 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: GitHub Actions](https://img.shields.io/badge/CI-GitHub%20Actions-blue?logo=githubactions)](https://github.com/features/actions)
 [![Environment: macOS 15](https://img.shields.io/badge/OS-macOS%2015-black?logo=apple)](https://developer.apple.com/xcode/)
+![Capacitor](https://img.shields.io/badge/Capacitor-119EFF?style=for-the-badge&logo=capacitor&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-4EAA25?style=for-the-badge&logo=gnu-bash&logoColor=white)
+
+---
+
+## 🏗️ Core Technologies
+
+| Technology | Purpose |
+| :--- | :--- |
+| **GitHub Actions** | Cloud Orchestration & Virtual macOS Environment |
+| **Xcode CLI** | Native `xcodebuild` for Archiving & IPA Export |
+| **Node.js 16** | Legacy Environment Compatibility & Build Engine |
+| **Capacitor** | Hybrid-to-Native Bridge Synchronization |
+| **PlistBuddy** | Dynamic `Info.plist` Metadata Manipulation |
+| **altool** | Secure App Store Connect / TestFlight Distribution |
+
+
 
 A production-grade **Native iOS CI/CD Pipeline** designed for hybrid applications (Ionic/Capacitor). This project provides a blueprint for virtualizing the Apple build ecosystem in the cloud, allowing for fully automated deployments to **App Store Connect / TestFlight** without requiring local macOS hardware.
 
