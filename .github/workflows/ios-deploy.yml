@@ -1,7 +1,7 @@
 name: MobileOps Pro – Native iOS Deployment
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # This makes it manual only. No more automatic failures!
   push:
     branches: [main, "release/**"]
 # Explicitly defining permissions for the GITHUB_TOKEN

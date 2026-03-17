@@ -7,6 +7,11 @@
 A production-grade **Native iOS CI/CD Pipeline** designed for hybrid applications (Ionic/Capacitor). This project provides a blueprint for virtualizing the Apple build ecosystem in the cloud, allowing for fully automated deployments to **App Store Connect / TestFlight** without requiring local macOS hardware.
 
 ---
+> **Note for Reviewers:** This repository is a technical demonstration of CI/CD orchestration. 
+> The automation workflows are set to `manual trigger` and require specific Apple Developer 
+> credentials (API Keys/Team IDs) to execute. The logic is provided as a blueprint for 
+> high-performance mobile infrastructure.
+> 
 
 ## 🛠️ The Problem & Solution
 
