@@ -171,7 +171,7 @@ APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
 APP_STORE_CONNECT_API_ISSUER	Issuer ID
 TEAM_ID	Apple Team ID
 ```
----
+```bash
 ### 📦 Project Structure
 mobile-ops-pro/
  ┣ 📂 ci-architecture/
@@ -184,8 +184,8 @@ mobile-ops-pro/
  ┃    ┗ 📜 mobileops-architecture.png
  ┣ 📜 README.md
  ┗ 📜 LICENSE
+```
 ### 🧠 Key Engineering Decisions
----
 Avoided Fastlane → used native Apple CLI tools
 
 Designed for deterministic CI builds
