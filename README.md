@@ -119,9 +119,14 @@ While this pipeline removes macOS dependency for CI/CD execution, a Mac environm
 
 ```bash
 npm install
+```
+```bash
 npm run build
+```
+```bash
 npx cap sync ios
 ```
+
 ### 3. Native Build Phase
 
 Compile using xcodebuild
@@ -159,11 +164,14 @@ Deploy to TestFlight
 ### 🔐 Environment Configuration
 Required GitHub Secrets
 Secret	Description
+
+```bash
 APP_STORE_CONNECT_API_KEY	.p8 key content
 APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
 APP_STORE_CONNECT_API_ISSUER	Issuer ID
 TEAM_ID	Apple Team ID
-
+```
+---
 ### 📦 Project Structure
 mobile-ops-pro/
  ┣ 📂 ci-architecture/
@@ -177,7 +185,7 @@ mobile-ops-pro/
  ┣ 📜 README.md
  ┗ 📜 LICENSE
 ### 🧠 Key Engineering Decisions
-
+---
 Avoided Fastlane → used native Apple CLI tools
 
 Designed for deterministic CI builds
