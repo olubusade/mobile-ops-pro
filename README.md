@@ -171,8 +171,8 @@ APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
 APP_STORE_CONNECT_API_ISSUER	Issuer ID
 TEAM_ID	Apple Team ID
 ```
-```bash
 ### 📦 Project Structure
+```bash
 mobile-ops-pro/
  ┣ 📂 ci-architecture/
  ┃ ┗ 📜 ios-deploy.yml
