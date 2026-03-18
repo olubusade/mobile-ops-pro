@@ -22,6 +22,10 @@ It eliminates the traditional macOS dependency for **build and deployment** by s
 ## 🏗️ Architecture Diagram
 ![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-pro-architecture.png)
 
+## 🏗️ Successful Github Action Build
+![Github Action Build ](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/githubaction-build-success.png)
+
+
 ---
 
 ## 🧠 Core Concept
@@ -117,13 +121,14 @@ While this pipeline removes macOS dependency for CI/CD execution, a Mac environm
 npm install
 npm run build
 npx cap sync ios
-3. Native Build Phase
+```
+### 3. Native Build Phase
 
 Compile using xcodebuild
 
 Generate .xcarchive
 
-4. Metadata Injection
+### 4. Metadata Injection
 
 Uses PlistBuddy to:
 
@@ -131,7 +136,7 @@ Auto-increment build number
 
 Inject runtime metadata
 
-5. Code Signing (Headless)
+### 5. Code Signing (Headless)
 
 Uses .p8 API Key authentication
 
@@ -139,26 +144,27 @@ No certificates exposed
 
 No interactive login required
 
-6. Export IPA
+### 6. Export IPA
 
 Uses exportOptions.plist
 
 Generates signed .ipa
 
-7. Distribution
+### 7. Distribution
 
 Upload via altool
 
 Deploy to TestFlight
 
-🔐 Environment Configuration
+### 🔐 Environment Configuration
 Required GitHub Secrets
 Secret	Description
 APP_STORE_CONNECT_API_KEY	.p8 key content
 APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
 APP_STORE_CONNECT_API_ISSUER	Issuer ID
 TEAM_ID	Apple Team ID
-📦 Project Structure
+
+### 📦 Project Structure
 mobile-ops-pro/
  ┣ 📂 ci-architecture/
  ┃ ┗ 📜 ios-deploy.yml
@@ -170,7 +176,7 @@ mobile-ops-pro/
  ┃    ┗ 📜 mobileops-architecture.png
  ┣ 📜 README.md
  ┗ 📜 LICENSE
-🧠 Key Engineering Decisions
+### 🧠 Key Engineering Decisions
 
 Avoided Fastlane → used native Apple CLI tools
 
@@ -180,7 +186,7 @@ Separated credential provisioning from execution
 
 Ensured reproducible signing
 
-⚡ Challenges Solved
+### ⚡ Challenges Solved
 
 Xcode version incompatibility
 
@@ -190,7 +196,7 @@ Secure CI/CD signing
 
 Hybrid app deployment complexity
 
-🚀 Outcome
+### 🚀 Outcome
 
 100% cloud-based iOS deployment pipeline
 
@@ -201,28 +207,22 @@ Reduced deployment time from hours → minutes
 Enabled scalable DevOps workflow
 
 ---
-## 📸 Screenshots
+### 📸 Screenshot
 ![Github Setup Credentials ](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/ios-credentials-archive.png)
 
-![Build](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/githubaction-build-success.png)
 ---
 
---
-
-![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-pro-architecture.png)
-
----
 CI Pipeline Execution
 
 Credentials Archive
 
 Build Output
 
-🎥 Demo
+### 🎥 Demo
 
 🚧 Demo video coming soon (TestFlight deployment pipeline)
 
-🛠️ How to Use
+### 🛠️ How to Use
 git clone https://github.com/olubusade/mobile-ops-pro.git
 Setup Steps
 
@@ -236,11 +236,11 @@ ci-architecture → .github/workflows
 
 Trigger pipeline
 
-📜 License
+### 📜 License
 
 MIT License
 
-🤝 Contact
+### 🤝 Contact
 
 Busade Adedayo
 🌐 https://busade.dev
