@@ -202,12 +202,9 @@ Enabled scalable DevOps workflow
 
 ---
 ## 📸 Screenshots
-<p align="center">
-  <img src="./assets/images/mobileops/ios-credentials-archive.png" width="800"/>
-</p>
-<p align="center">
-  <img src="./assets/images/mobileops/githubaction-build-success.png" width="800"/>
-</p>
+![Github Setup Credentials ](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/ios-credentials-archive.png)
+
+![Build](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/githubaction-build-success.png)
 ---
 
 CI Pipeline Execution
