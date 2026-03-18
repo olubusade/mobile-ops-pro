@@ -16,11 +16,11 @@ It eliminates the traditional macOS dependency for **build and deployment** by s
 
 > 💡 This system was successfully used to deploy the **Afronet Dating App** to TestFlight without relying on local build machines.
 
-![Architecture](assets/images/mobileops/mobileops-architecture.png)
+
 ---
 
 ## 🏗️ Architecture Diagram
-![Architecture](assets/images/mobileops/mobileops-architecture.png)
+![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-architecture.png)
 
 ---
 
