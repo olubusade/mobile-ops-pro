@@ -20,7 +20,7 @@ It eliminates the traditional macOS dependency for **build and deployment** by s
 ---
 
 ## 🏗️ Architecture Diagram
-![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-architecture.png)
+![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-pro-architecture.png)
 
 ---
 
