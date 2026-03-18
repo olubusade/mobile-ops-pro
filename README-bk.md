@@ -14,7 +14,8 @@
 
 It eliminates the traditional macOS dependency for **build and deployment** by shifting the entire iOS pipeline to **cloud-based macOS runners**, while retaining a one-time secure credential provisioning step on a local Mac environment.
 
-> 💡 Successfully used to deploy the **Afronet Dating App** to TestFlight with zero reliance on local build infrastructure.
+> 💡 This system was successfully used to deploy the **Afronet Dating App** to TestFlight without relying on local build machines.
+
 
 ---
 
@@ -22,7 +23,8 @@ It eliminates the traditional macOS dependency for **build and deployment** by s
 ![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-pro-architecture.png)
 
 ## 🏗️ Successful Github Action Build
-![Github Action Build](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/githubaction-build-success.png)
+![Github Action Build ](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/githubaction-build-success.png)
+
 
 ---
 
@@ -40,19 +42,6 @@ Traditional iOS pipelines:
 - Headless authentication using `.p8` API keys  
 - Fully automated CI/CD pipeline  
 - Deterministic and reproducible builds  
-- Environment-agnostic deployment (runs anywhere GitHub Actions is supported)
-
----
-
-## 📊 Impact Metrics
-
-| Metric | Result |
-|------|--------|
-| Deployment Time | ⬇️ Reduced from hours → minutes |
-| Hardware Dependency | ❌ Eliminated |
-| Build Consistency | ✅ 100% reproducible |
-| CI/CD Automation | ✅ Fully automated |
-| Deployment Success Rate | ✅ ~99% |
 
 ---
 
@@ -73,45 +62,47 @@ Traditional iOS pipelines:
 
 ### 🧩 Challenge
 
-During deployment:
+During the deployment of the **Afronet Dating App**:
 
-- MacBook reached **OS End-of-Life**  
-- Required Xcode version unavailable  
-- Local build pipeline completely blocked  
+- The available MacBook reached **OS End-of-Life**  
+- Required Xcode version was unavailable  
+- Local build pipeline became unusable  
 
 ---
 
 ### 💡 Solution
 
+Instead of upgrading hardware, I redesigned the deployment strategy:
+
 - Performed **one-time Apple credential provisioning** on Mac  
-- Migrated entire pipeline to GitHub Actions macOS runners  
+- Migrated all build and deployment processes to GitHub Actions  
 
-### ✅ Result
+This enabled:
 
-- Latest iOS SDK builds without upgrading hardware  
+- Compilation using latest iOS SDKs (cloud Xcode)  
+- Headless signing via App Store Connect API  
 - Fully automated TestFlight deployment  
-- Zero manual intervention  
 
 ---
 
 ## 🍎 Apple Credential Provisioning Note
 
-A Mac environment is required **only once** for secure setup.
+While this pipeline removes macOS dependency for CI/CD execution, a Mac environment is still required **once** for secure setup.
 
 ### 🔐 MacBook was used for:
 
-- App Store Connect API Key generation (`.p8`)  
-- Bundle Identifier setup  
-- Apple Developer configuration  
+- Generating App Store Connect API Key (`.p8`)  
+- Creating Bundle Identifier  
+- Apple Developer account configuration  
 
 ### 🚀 MacBook was NOT used for:
 
-- ❌ Build process  
+- ❌ App build process  
 - ❌ Archive generation  
 - ❌ IPA export  
 - ❌ TestFlight deployment  
 
-👉 All CI/CD execution runs in **GitHub-hosted macOS runners**
+👉 All CI/CD execution happens in **GitHub Actions macOS runners**
 
 ---
 
@@ -128,69 +119,64 @@ A Mac environment is required **only once** for secure setup.
 
 ```bash
 npm install
+```
+```bash
 npm run build
+```
+```bash
 npx cap sync ios
-````
-
----
+```
 
 ### 3. Native Build Phase
 
-* Compile using `xcodebuild`
-* Generate `.xcarchive`
+Compile using xcodebuild
 
----
+Generate .xcarchive
 
 ### 4. Metadata Injection
 
-* Auto-increment build number
-* Inject runtime metadata via `PlistBuddy`
+Uses PlistBuddy to:
 
----
+Auto-increment build number
+
+Inject runtime metadata
 
 ### 5. Code Signing (Headless)
 
-* `.p8` API Key authentication
-* No certificates stored in repo
-* No interactive login required
+Uses .p8 API Key authentication
 
----
+No certificates exposed
+
+No interactive login required
 
 ### 6. Export IPA
 
-* Uses `exportOptions.plist`
-* Produces signed `.ipa` artifact
+Uses exportOptions.plist
 
----
+Generates signed .ipa
 
 ### 7. Distribution
 
-* Upload via `altool`
-* Deploy to **TestFlight**
+Upload via altool
 
----
+Deploy to TestFlight
 
-## 🔐 Environment Configuration
-
-### Required GitHub Secrets
+### 🔐 Environment Configuration
+Required GitHub Secrets
+Secret	Description
 
 ```bash
-APP_STORE_CONNECT_API_KEY
-APP_STORE_CONNECT_API_KEY_ID
-APP_STORE_CONNECT_API_ISSUER
-TEAM_ID
+APP_STORE_CONNECT_API_KEY	.p8 key content
+APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
+APP_STORE_CONNECT_API_ISSUER	Issuer ID
+TEAM_ID	Apple Team ID
 ```
 
 ---
-
 ### 📸 Github Credentials Archive
-
 ![Github Credentials Archive](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/ios-credentials-archive.png)
-
 ---
-
 ### 📦 Project Structure
-
 ```bash
 mobile-ops-pro/
  ┣ 📂 ci-architecture/
@@ -204,73 +190,61 @@ mobile-ops-pro/
  ┣ 📜 README.md
  ┗ 📜 LICENSE
 ```
-
----
-
 ### 🧠 Key Engineering Decisions
+Avoided Fastlane → used native Apple CLI tools
 
-* Avoided Fastlane → reduced abstraction, improved control
-* Leveraged native Apple CLI tools for transparency
-* Designed for deterministic CI/CD builds
-* Separated credential provisioning from execution
-* Ensured secure and reproducible signing process
+Designed for deterministic CI builds
 
----
+Separated credential provisioning from execution
+
+Ensured reproducible signing
 
 ### ⚡ Challenges Solved
 
-* Xcode version incompatibility
-* Hardware limitations
-* Secure CI/CD signing
-* Hybrid mobile deployment complexity
+Xcode version incompatibility
 
----
+Hardware dependency for builds
+
+Secure CI/CD signing
+
+Hybrid app deployment complexity
 
 ### 🚀 Outcome
 
-* Fully cloud-based iOS deployment pipeline
-* Zero dependency on local machines
-* Faster, scalable release process
-* Production-ready DevOps workflow
+100% cloud-based iOS deployment pipeline
 
----
+Zero reliance on local hardware for CI/CD
+
+Reduced deployment time from hours → minutes
+
+Enabled scalable DevOps workflow
+
 
 ### 🎥 Demo
 
-🚧 Demo video coming soon (TestFlight pipeline)
-
----
+🚧 Demo video coming soon (TestFlight deployment pipeline)
 
 ### 🛠️ How to Use
-
-```bash
 git clone https://github.com/olubusade/mobile-ops-pro.git
-```
+Setup Steps
 
-### Setup Steps
+Configure exportOptions.plist
 
-1. Configure `exportOptions.plist`
-2. Add GitHub Secrets
-3. Move workflow:
+Add GitHub Secrets
 
-```bash
+Rename:
+
 ci-architecture → .github/workflows
-```
 
-4. Trigger pipeline 🚀
-
----
+Trigger pipeline
 
 ### 📜 License
 
 MIT License
 
----
-
 ### 🤝 Contact
 
-**Busade Adedayo**
-🌐 [https://busade.dev](https://busade.dev)
-🐙 [https://github.com/olubusade](https://github.com/olubusade)
+Busade Adedayo
+🌐 https://busade.dev
 
-```
+🐙 https://github.com/olubusade
