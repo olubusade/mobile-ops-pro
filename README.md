@@ -21,7 +21,7 @@ It eliminates the traditional macOS dependency for **build and deployment** by s
 ## 🏗️ Architecture Diagram
 
 <p align="center">
-  <img src="./assets/images/mobileops/mobileops-architecture.png" width="800"/>
+  <img src="./assets/images/mobileops-architecture.png" width="800"/>
 </p>
 
 ---
