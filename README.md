@@ -1,4 +1,3 @@
-````markdown
 # 📱 MobileOps Pro: Native iOS CI/CD Orchestrator
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -30,15 +29,17 @@ It eliminates the traditional macOS dependency for **build and deployment** by s
 ## 🧠 Core Concept
 
 Traditional iOS pipelines:
-- Require physical Mac hardware ❌
-- Depend on manual signing ❌
-- Are difficult to scale ❌
+
+- Require physical Mac hardware ❌  
+- Depend on manual signing ❌  
+- Are difficult to scale ❌  
 
 ### ✅ MobileOps Pro Approach:
-- Cloud-native iOS builds via GitHub Actions
-- Headless authentication using `.p8` API keys
-- Fully automated CI/CD pipeline
-- Deterministic and reproducible builds
+
+- Cloud-native iOS builds via GitHub Actions  
+- Headless authentication using `.p8` API keys  
+- Fully automated CI/CD pipeline  
+- Deterministic and reproducible builds  
 
 ---
 
@@ -60,9 +61,10 @@ Traditional iOS pipelines:
 ### 🧩 Challenge
 
 During the deployment of the **Afronet Dating App**:
-- The available MacBook reached **OS End-of-Life**
-- Latest Xcode version required for App Store submission was unavailable
-- Traditional local build pipeline became unusable
+
+- The available MacBook reached **OS End-of-Life**  
+- Required Xcode version was unavailable  
+- Local build pipeline became unusable  
 
 ---
 
@@ -70,13 +72,14 @@ During the deployment of the **Afronet Dating App**:
 
 Instead of upgrading hardware, I redesigned the deployment strategy:
 
-- Performed **one-time Apple credential provisioning** on Mac
-- Migrated all build and deployment processes to GitHub Actions
+- Performed **one-time Apple credential provisioning** on Mac  
+- Migrated all build and deployment processes to GitHub Actions  
 
 This enabled:
-- Compilation using latest iOS SDKs (cloud Xcode)
-- Headless signing via App Store Connect API
-- Fully automated TestFlight deployment
+
+- Compilation using latest iOS SDKs (cloud Xcode)  
+- Headless signing via App Store Connect API  
+- Fully automated TestFlight deployment  
 
 ---
 
@@ -85,25 +88,28 @@ This enabled:
 While this pipeline removes macOS dependency for CI/CD execution, a Mac environment is still required **once** for secure setup.
 
 ### 🔐 MacBook was used for:
-- Generating App Store Connect API Key (`.p8`)
-- Creating Bundle Identifier
-- Apple Developer account configuration
+
+- Generating App Store Connect API Key (`.p8`)  
+- Creating Bundle Identifier  
+- Apple Developer account configuration  
 
 ### 🚀 MacBook was NOT used for:
-- ❌ App build process
-- ❌ Archive generation
-- ❌ IPA export
-- ❌ TestFlight deployment
 
-👉 All of the above are executed in **GitHub Actions macOS runners**
+- ❌ App build process  
+- ❌ Archive generation  
+- ❌ IPA export  
+- ❌ TestFlight deployment  
+
+👉 All CI/CD execution happens in **GitHub Actions macOS runners**
 
 ---
 
 ## ⚙️ Pipeline Flow
 
 ### 1. Trigger
-- Push to `main`
-- Manual workflow dispatch
+
+- Push to `main`  
+- Manual workflow dispatch  
 
 ---
 
@@ -113,64 +119,48 @@ While this pipeline removes macOS dependency for CI/CD execution, a Mac environm
 npm install
 npm run build
 npx cap sync ios
-````
+3. Native Build Phase
 
----
+Compile using xcodebuild
 
-### 3. Native Build Phase
+Generate .xcarchive
 
-* Compile using `xcodebuild`
-* Generate `.xcarchive`
+4. Metadata Injection
 
----
+Uses PlistBuddy to:
 
-### 4. Metadata Injection
+Auto-increment build number
 
-* Uses `PlistBuddy` to:
+Inject runtime metadata
 
-  * Auto-increment build number
-  * Inject runtime metadata
+5. Code Signing (Headless)
 
----
+Uses .p8 API Key authentication
 
-### 5. Code Signing (Headless)
+No certificates exposed
 
-* Uses `.p8` API Key authentication
-* No certificates exposed
-* No interactive login required
+No interactive login required
 
----
+6. Export IPA
 
-### 6. Export IPA
+Uses exportOptions.plist
 
-* Uses `exportOptions.plist`
-* Generates signed `.ipa`
+Generates signed .ipa
 
----
+7. Distribution
 
-### 7. Distribution
+Upload via altool
 
-* Upload via `altool`
-* Deploy to **TestFlight**
+Deploy to TestFlight
 
----
-
-## 🔐 Environment Configuration
-
-### Required GitHub Secrets
-
-| Secret                         | Description       |
-| ------------------------------ | ----------------- |
-| `APP_STORE_CONNECT_API_KEY`    | `.p8` key content |
-| `APP_STORE_CONNECT_API_KEY_ID` | Apple Key ID      |
-| `APP_STORE_CONNECT_API_ISSUER` | Issuer ID         |
-| `TEAM_ID`                      | Apple Team ID     |
-
----
-
-## 📦 Project Structure
-
-```bash
+🔐 Environment Configuration
+Required GitHub Secrets
+Secret	Description
+APP_STORE_CONNECT_API_KEY	.p8 key content
+APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
+APP_STORE_CONNECT_API_ISSUER	Issuer ID
+TEAM_ID	Apple Team ID
+📦 Project Structure
 mobile-ops-pro/
  ┣ 📂 ci-architecture/
  ┃ ┗ 📜 ios-deploy.yml
@@ -182,86 +172,77 @@ mobile-ops-pro/
  ┃    ┗ 📜 mobileops-architecture.png
  ┣ 📜 README.md
  ┗ 📜 LICENSE
-```
+🧠 Key Engineering Decisions
+
+Avoided Fastlane → used native Apple CLI tools
+
+Designed for deterministic CI builds
+
+Separated credential provisioning from execution
+
+Ensured reproducible signing
+
+⚡ Challenges Solved
+
+Xcode version incompatibility
+
+Hardware dependency for builds
+
+Secure CI/CD signing
+
+Hybrid app deployment complexity
+
+🚀 Outcome
+
+100% cloud-based iOS deployment pipeline
+
+Zero reliance on local hardware for CI/CD
+
+Reduced deployment time from hours → minutes
+
+Enabled scalable DevOps workflow
 
 ---
-
-## 🧠 Key Engineering Decisions
-
-* Avoided Fastlane → used native Apple CLI tools
-* Designed for deterministic CI builds
-* Separated credential provisioning from execution
-* Ensured reproducible signing via configuration
-
+## 📸 Screenshots
+<p align="center">
+  <img src="./assets/images/ios-credentials-archive.png" width="800"/>
+</p>
+<p align="center">
+  <img src="./assets/images/githubaction-build-success.png" width="800"/>
+</p>
 ---
 
-## ⚡ Challenges Solved
+CI Pipeline Execution
 
-* Xcode version incompatibility
-* Hardware dependency for builds
-* Secure CI/CD signing
-* Hybrid app deployment complexity
+Credentials Archive
 
----
+Build Output
 
-## 🚀 Outcome
-
-* 100% cloud-based iOS deployment pipeline
-* Zero reliance on local hardware for CI/CD
-* Reduced deployment time from **hours → minutes**
-* Enabled scalable DevOps workflow for mobile teams
-
----
-
-## 📸 Screenshots (Optional)
-
-```markdown
-## CI Pipeline Execution
-![CI](./assets/images/mobileOps-pro.png)
-## Credentials Archive
-![Build](./assets/images/ios-credentials-archive.png)
-## Build Output
-![Build](./assets/images/githubaction-build-success.png)
-```
-
----
-
-## 🎥 Demo
+🎥 Demo
 
 🚧 Demo video coming soon (TestFlight deployment pipeline)
 
----
-
-## 🛠️ How to Use
-
-```bash
+🛠️ How to Use
 git clone https://github.com/olubusade/mobile-ops-pro.git
-```
+Setup Steps
 
-### Setup Steps:
+Configure exportOptions.plist
 
-1. Configure `exportOptions.plist`
-2. Add GitHub Secrets
-3. Rename:
+Add GitHub Secrets
 
-```bash
+Rename:
+
 ci-architecture → .github/workflows
-```
 
-4. Trigger pipeline
+Trigger pipeline
 
----
-
-## 📜 License
+📜 License
 
 MIT License
 
----
+🤝 Contact
 
-## 🤝 Contact
+Busade Adedayo
+🌐 https://busade.dev
 
-**Busade Adedayo**
-🌐 [https://busade.dev](https://busade.dev)
-🐙 [https://github.com/olubusade](https://github.com/olubusade)
-
-```
+🐙 https://github.com/olubusade
