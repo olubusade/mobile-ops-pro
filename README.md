@@ -171,6 +171,11 @@ APP_STORE_CONNECT_API_KEY_ID	Apple Key ID
 APP_STORE_CONNECT_API_ISSUER	Issuer ID
 TEAM_ID	Apple Team ID
 ```
+
+---
+### 📸 Github Credentials Archive
+![Github Credentials Archive](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/ios-credentials-archive.png)
+---
 ### 📦 Project Structure
 ```bash
 mobile-ops-pro/
@@ -214,17 +219,6 @@ Reduced deployment time from hours → minutes
 
 Enabled scalable DevOps workflow
 
----
-### 📸 Screenshot
-![Github Setup Credentials ](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/ios-credentials-archive.png)
-
----
-
-CI Pipeline Execution
-
-Credentials Archive
-
-Build Output
 
 ### 🎥 Demo
 
