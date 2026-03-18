@@ -207,6 +207,11 @@ Enabled scalable DevOps workflow
 ![Build](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/githubaction-build-success.png)
 ---
 
+--
+
+![Architecture](https://raw.githubusercontent.com/olubusade/mobile-ops-pro/main/assets/images/mobileops/mobileops-pro-architecture.png)
+
+---
 CI Pipeline Execution
 
 Credentials Archive
